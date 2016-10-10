@@ -5,3 +5,5 @@ function inherits(base, extension) {
     } catch (warning) {}
   }
 }
+
+module.exports = inherits;

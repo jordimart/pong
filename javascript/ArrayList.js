@@ -118,4 +118,4 @@ ArrayList.prototype.LastIndexOf =
     return m_returnValue;
   }
 
-// module.exports = ArrayList;
+module.exports = ArrayList;

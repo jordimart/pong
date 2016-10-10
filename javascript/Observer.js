@@ -5,4 +5,4 @@ function Observer() {
   }
 }
 
-// module.exports = Observer;
+module.exports = Observer;

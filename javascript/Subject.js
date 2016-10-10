@@ -1,7 +1,9 @@
 // http://www.codeproject.com/Articles/13914/Observer-Design-Pattern-Using-JavaScript
 
+var arrayList = require('./ArrayList');
+
 function Subject() {
-  this.observers = new ArrayList();
+  this.observers = new arrayList();
 }
 
 // Context represents an object instance (Ball in our case)
@@ -29,4 +31,4 @@ Subject.prototype.RemoveObserver =
     this.observers.RemoveAt(this.observers.IndexOf(observer, 0));
   }
 
-// module.exports = Subject;
+module.exports = Subject;

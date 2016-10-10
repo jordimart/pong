@@ -8,11 +8,15 @@
  * @param {id_stick} ,side {left or right}
  *
  */
+
+var inherits = require('./Inheritance');
+var Observer = require('./Observer');
+
 function Stick(id_stick, side, context) {
 
   this.imgObj = document.getElementById(id_stick);
   this.side = side || "left"; // right,left,
-  this.gap = 25; // From this.position in pixels
+  this.gap = 80; // From this.position in pixels
   this.context = context;
   var self = this;
 
@@ -34,9 +38,10 @@ function Stick(id_stick, side, context) {
   this.Update =
     function(bola) { // bola is a Ball Object
       var pos = bola.getPosition();
-      var limit = 300 - this.gap - bola.imgObj.width - this.imgObj.width;
-      if (pos.x >= limit) {
-        console.log("Posy bola->" + pos.y + "limit>" + limit);
+      var limit = (this.context.vpWidth * 0.25) + this.gap - bola.imgObj.width -
+        this.imgObj.width;
+      if (pos.x <= limit) {
+        console.log("Estem dins del limit");
         var distance = Math.abs((this.y + this.imgObj.height / 2) -
           (pos.y + bola.imgObj.height / 2));
         var minDist = (this.imgObj.height / 2 + bola.imgObj.height / 2);

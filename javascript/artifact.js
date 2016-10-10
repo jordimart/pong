@@ -6,6 +6,9 @@
   *
  */
 
+var inherits = require('./Inheritance');
+var Subject = require('./Subject');
+
 var Artifact = function(id_artifact, context) {
 
   this.imgObj = document.getElementById(id_artifact);
@@ -16,6 +19,9 @@ var Artifact = function(id_artifact, context) {
   this.getArtifactSelf = function() {
     return self;
   };
+
+  // añadido
+  inherits(new Subject(), this);
 
   // Get ball position. Respecte extrem superior esquerre
   this.getPosition =
@@ -29,18 +35,15 @@ var Artifact = function(id_artifact, context) {
   this.rebota =
     function(typeObject, pos) {
       if (typeObject == "Stick" && pos == "punta") {
-        // alert("punta");
-        this.dirY *= (-1);
-        this.dirX *= (-1);
+        console.log("punta");
+        self.setDirection("SOUTH_EAST");
       } else if (typeObject == "Stick" && pos == "punteta") {
-        // this.imgObj.meneja=2;
-        // if (this.dirX>0)
-        // alert("punteta");
-        this.dirY *= (-1);
-        this.dirX *= (-1);
+
+        console.log("punteta");
+        self.setDirection("NORTH_EAST");
 
       } else {
-        this.dirX *= (-1);
+        self.setDirection("EAST");
       }
       // this.imgObj.meneja = Math.abs(this.imgObj.meneja-(directions.length-1));
     }
@@ -80,9 +83,6 @@ var Artifact = function(id_artifact, context) {
     },
   };
 
-  // añadido
-  inherits(new Subject(), this);
-
 }; // END  Ball prototype
 
 Artifact.prototype.setDirection = function(CARDINAL_POINT) {
@@ -98,11 +98,12 @@ Artifact.prototype.move = function() {
 
 // Posicionem Bola de manera absoluta en X i Y i comprovem llímits
 Artifact.prototype.locate = function(x, y) {
-  // Ens eixim per dalt
+  // Ens eixim per dalt o per baix
   if (y <= 0 || y >= this.context.vpHeight - this.imgObj.height)
     this.dirY = this.dirY * (-1);
-  // Quitar choque aui detras de la barra
 
+  // ens eixim per els costats
+  // aci tindrem que modificar despres per a que sen ixca per lesquerre.
   if (x <= 0 || x >= this.context.vpWidth - this.imgObj.width)
     this.dirX = this.dirX * (-1);
 
