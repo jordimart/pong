@@ -1,32 +1,34 @@
 /**
- * Our app is a closure
- *
+ *  Pong  entry script
  *
  */
+"use strict";
 
-// include('./Inheritance');
-// include('./ArrayList');
 var utils = require('./utils');
-// include('./Observer');
-// include('./Subject');
-var context = require('./context');
+var singletonContext = require('./patterns/singleton/singletonContext');
 
-// Once page has been completely loaded. Including images. We start the game
-window.onload = function() {
+//Once the page has been completely loaded. Including images. We start the game
+window.onload=function(){
 
-  var context_ = new context();
+    var context_ = singletonContext.getInstance();
 
-  var startGame = function(event) {
-    event.preventDefault();
-    utils.clearSelection();
-    if (window.event.keyCode == 32) {
-      if (context_.state.match("run")) {
-        context_.stop();
-      } else {
-        context_.start();
-      }
-    }
-  };
+    var startGame=function(event){
+        event.preventDefault();
+        utils.clearSelection();
+        if (context_.state.match("run")){
+          context_.stop();
+        }else{
+          context_.start();
+        }
+    };
 
-  window.addEventListener("keypress", startGame, false);
+    utils.checkCookie(function(){  window.addEventListener("keypress",startGame,false);});
+    //On resize we restart context to adjust game elements to new viewport
+    window.onresize = function() {
+        context_.restart();
+        //console.log("resize");
+    };
+
+
+
 };
